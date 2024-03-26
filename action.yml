@@ -1,0 +1,31 @@
+# action.yml
+name: 'OpenAPI Generator'
+description: 'Geenerate client from open api document'
+inputs:
+  input: 
+    description: Path to open api document 
+    required: true
+    default: swagger.json
+  output: 
+    description: Path to generate files to
+    required: true
+    default: out
+outputs:
+  time: # id of output
+    description: 'The time we greeted you'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - generate
+    - "-i"
+    - ${{ inputs.input }}
+    - "-o"
+    - ${{ inputs.output }}
+    - "-g"
+    - "typescript-fetch"
+    - "-c"
+    - "/config/typescript-fetch.json"
+    - "-t"
+    - "/template/typescript-fetch"
+    - "--additional-properties=npmName=@crochik/auto-pi,npmVersion=0.1.4"    
