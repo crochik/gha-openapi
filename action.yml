@@ -5,11 +5,18 @@ inputs:
   input: 
     description: Path to open api document 
     required: true
-    default: swagger.json
+    default: /github/workspace/swagger.json
+  config: 
+    description: Path to config file
+    required: true
+  generator: 
+    description: Generator 
+    required: true
+    default: typescript-fetch
   output: 
     description: Path to generate files to
     required: true
-    default: out
+    default: /github/workspace/output
 outputs:
   time: # id of output
     description: 'The time we greeted you'
@@ -23,9 +30,9 @@ runs:
     - "-o"
     - ${{ inputs.output }}
     - "-g"
-    - "typescript-fetch"
+    - ${{ inputs.generator }}
     - "-c"
-    - "/config/typescript-fetch.json"
-    - "-t"
-    - "/template/typescript-fetch"
-    - "--additional-properties=npmName=@crochik/auto-pi,npmVersion=0.1.4"    
+    - ${{ inputs.config }}
+    # - "-t"
+    # - "/template/typescript-fetch"
+    # - "--additional-properties=npmName=@crochik/auto-pi,npmVersion=0.1.4"    
